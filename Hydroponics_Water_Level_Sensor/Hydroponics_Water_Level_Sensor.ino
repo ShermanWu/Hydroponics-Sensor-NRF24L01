@@ -17,7 +17,6 @@ byte water_level_sensor_status = 0;
 void clientSetup()
 {
   pinMode(5, INPUT_PULLUP);
-  digitalWrite(2, HIGH);
 }
 
 void clientLoop()
@@ -36,6 +35,6 @@ void sendDataWithIDAndStatus(String id, byte status)
   byte sensorStatus[12];
   id.getBytes(sensorStatus, 11);
   doorStatus[11] = status;
-  client.sendData((byte *)"tbhub", (byte *)doorStatus);
-  free(doorStatus);
+  client.sendData((byte *)"hydrohub", (byte *)sensorStatus);
+  free(sensorStatus);
 }
