@@ -18,7 +18,7 @@ unsigned long last_transmit_millis = 0;
 unsigned long transmit_interval = 60;
 void setup()
 {
-  transmit_interval = (transmit_interval + 10) * 1000;
+  transmit_interval = transmit_interval * 1000 * 1.3; // add extra time to the interval to account for differences in low power mode
   //Add LED config
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
   //Set Mirf (NRF24L01+) pins
