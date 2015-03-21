@@ -38,6 +38,8 @@ void sendDataWithIDAndStatus(String id, byte status)
 {
   byte sensorStatus[12];
   id.getBytes(sensorStatus, 11);
+  
+  
   sensorStatus[11] = status;
   client.sendData((byte *)"hydrohub", (byte *)sensorStatus);
   free(sensorStatus);
