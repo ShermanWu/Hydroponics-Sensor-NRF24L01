@@ -27,6 +27,15 @@ unsigned long transmit_interval = 60;
 //Failed tranmissions limit (for blue disconnect led)
 int failed_trans_limit = 5;
 
+//Union type
+typedef union {
+ float floatingPoint;
+ byte binary[4];
+} binaryFloat;
+
+binaryFloat temp;
+
+float tempC = 0.0;
 
 void setup()
 {
@@ -59,7 +68,7 @@ void loop()
     if(failed_trans >= failed_trans_limit){
       led_colour = 'B';
     }
-    Serial.println(failed_trans);
+    //Serial.println(failed_trans);
   }
   //Serial.println(millis() - last_transmit_millis);
   
@@ -73,7 +82,11 @@ void loop()
     byte data[32];
     Mirf.getData((byte *) &data);
     String id = String((char *)data);
-    
+    for(int i = 0;i < 4;i++){
+    temp.binary[i] = data[i+12];
+    }
+    tempC = temp.floatingPoint;
+    Serial.println(tempC);
     if(data[11] == 1){
       led_colour = 'R';
     }else{
